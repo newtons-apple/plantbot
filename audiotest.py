@@ -1,3 +1,3 @@
-import winsound
+from playsound import playsound
 
-winsound.PlaySound("mechatronics.wav", winsound.SND_FILENAME)
+playsound("mechatronics.wav")
