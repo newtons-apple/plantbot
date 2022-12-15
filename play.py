@@ -193,7 +193,7 @@ while True:
                         #장애물 만나면
                         if(5>ultrasonic.checkdist()):
                             avoidObstacle()                  
-                    if(1000< readIlluminance())
+                    if(1000< readIlluminance()):
                         move.motorStop()
                         break
         except sr.UnknownValueError:
