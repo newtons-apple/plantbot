@@ -13,7 +13,6 @@ Ec = 24
 
 def checkdist():#Reading distance
 	print('u-1')
-	GPIO.setmode(GPIO.BOARD)
 	GPIO.setup(Tr, GPIO.OUT,initial=GPIO.LOW)
 	GPIO.setup(Ec, GPIO.IN)
 	GPIO.output(Tr, GPIO.HIGH)
