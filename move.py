@@ -51,15 +51,15 @@ def move(speed, direction, turn, radius=0.6):   # 0 < radius <= 1
 
             motor_right(0, right_backward, int(speed*radius))  
 
-         else:  
+        else:  
 
-             motor_left(1, left_forward, speed)  
+            motor_left(1, left_forward, speed)  
 
-             motor_right(1, right_forward, speed)  
+            motor_right(1, right_forward, speed)  
 
-     else:  
+    else:  
 
-         pass
+        pass
 if __name__ == '__main__':  
     try:  
 
