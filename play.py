@@ -150,136 +150,135 @@ def dance():
 def sing():
     playsound("christmas_song.wav")
 
-
-master = False
-while True:
-    ret, img =cam.read()
-    img = cv2.flip(img, 1)
-    img = cv2.flip(img, -1)
-    gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-    
-    faces = faceCascade.detectMultiScale( 
-        gray,
-        scaleFactor = 1.2,
-        minNeighbors = 5,
-        minSize = (int(minW), int(minH)),
-       )
-    for(x,y,w,h) in faces:
-        # cv2.rectangle(img, (x,y), (x+w,y+h), (0,255,0), 2)
-        id, confidence = recognizer.predict(gray[y:y+h,x:x+w])
-        # Check if confidence is less them 100 ==> "0" is perfect match
-        if (confidence < 100):
-            id = names[id]
-            # confidence = "  {0}%".format(round(100 - confidence))
-            cv2.imshow('face',happy)
-            cv2.waitKey(10)
-            playsound("hello.wav")
-            time.sleep(1)
-            cv2.imshow('face',normal)
-            cv2.waitKey(10)
-            master = True
-            break
-
-            
-
-        else:
-            id = "unknown"
-            # confidence = "  {0}%".format(round(100 - confidence))
+if __name__=='__main__':
+    master = False
+    while True:
+        ret, img =cam.read()
+        img = cv2.flip(img, 1)
+        img = cv2.flip(img, -1)
+        gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
         
-        # cv2.putText(img, str(id), (x+5,y-5), font, 1, (255,255,255), 2)
-        # cv2.putText(img, str(confidence), (x+5,y+h-5), font, 1, (255,255,0), 1)  
-    # cv2.imshow('camera',img) 
-    if master:
-        master=False
-        break
-
-
-
-    k = cv2.waitKey(10) & 0xff # Press 'ESC' for exiting video
-    if k == 27:
-        break
-
-while True:
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-        print("Say something!")
-        audio = r.listen(source,10,5)
-        try:
-            result = r.recognize_google(audio)
-            if(result == "Merry Christmas"):
+        faces = faceCascade.detectMultiScale( 
+            gray,
+            scaleFactor = 1.2,
+            minNeighbors = 5,
+            minSize = (int(minW), int(minH)),
+        )
+        for(x,y,w,h) in faces:
+            # cv2.rectangle(img, (x,y), (x+w,y+h), (0,255,0), 2)
+            id, confidence = recognizer.predict(gray[y:y+h,x:x+w])
+            # Check if confidence is less them 100 ==> "0" is perfect match
+            if (confidence < 100):
+                id = names[id]
+                # confidence = "  {0}%".format(round(100 - confidence))
                 cv2.imshow('face',happy)
                 cv2.waitKey(10)
-                playsound("christmas_song.wav")
-                time.sleep(0.5)
-                # p_a=Process(target=dance)
-                # p_b=Process(target=sing)
-                # p_a.start()
-                # p_b.start()
-                # time.sleep(14)
-                # p_a.join()
-                # p_b.join()
-            if(result == "are you having enough light"):
-                cv2.imshow('face',sad)
+                playsound("hello.wav")
+                time.sleep(1)
+                cv2.imshow('face',normal)
                 cv2.waitKey(10)
-                playsound("no.wav")
-                time.sleep(0.5)
-                while True:
-                    print(1)
-                    lightcheck()
-                    print('a-1')
-                    move.move(100,'forward','front')
-                    time.sleep(5)
-                    print('a-2')
-                    lightcheck()
-                    start_time=time.time()
-                    pass2=False                 
+                master = True
+                break
+
+                
+
+            else:
+                id = "unknown"
+                # confidence = "  {0}%".format(round(100 - confidence))
+            
+            # cv2.putText(img, str(id), (x+5,y-5), font, 1, (255,255,255), 2)
+            # cv2.putText(img, str(confidence), (x+5,y+h-5), font, 1, (255,255,0), 1)  
+        # cv2.imshow('camera',img) 
+        if master:
+            master=False
+            break
+
+
+
+        k = cv2.waitKey(10) & 0xff # Press 'ESC' for exiting video
+        if k == 27:
+            break
+
+    while True:
+        r = sr.Recognizer()
+        with sr.Microphone() as source:
+            print("Say something!")
+            audio = r.listen(source,10,5)
+            try:
+                result = r.recognize_google(audio)
+                if(result == "Merry Christmas"):
+                    cv2.imshow('face',happy)
+                    cv2.waitKey(10)
+                    # sing()
+                    # time.sleep(0.5)
+                    p_a=Process(target=dance)
+                    p_b=Process(target=sing)
+                    p_a.start()
+                    p_b.start()
+                    p_a.join()
+                    p_b.join()
+                if(result == "are you having enough light"):
+                    cv2.imshow('face',sad)
+                    cv2.waitKey(10)
+                    playsound("no.wav")
+                    time.sleep(0.5)
                     while True:
+                        print(1)
+                        lightcheck()
+                        print('a-1')
                         move.move(100,'forward','front')
-                        print(2)
-                        #장애물 만나면
-                        print(ultrasonic.checkdist())
+                        time.sleep(8)
+                        print('a-2')
+                        lightcheck()
+                        start_time=time.time()
+                        pass2=False                 
+                        while True:
+                            move.move(100,'forward','front')
+                            print(2)
+                            #장애물 만나면
+                            print(ultrasonic.checkdist())
 
-                        if(5>ultrasonic.checkdist()):
-                            print(3)
+                            if(5>ultrasonic.checkdist()):
+                                print(3)
+                                move.motorStop()
+                                time.sleep(1)
+                                avoidObstacle()
+                                print('55')
+                                pass2=True
+                                break
+                            if(20<(time.time()-start_time)):
+                                print('44')
+                                pass2=True
+                                break
+                        print('77')
+                        if(pass2):
+                            print('66')
+                            break
+                    move.move(100,'forward','forward')
+                    while True:
+                        print('last1')
+                        lux = readIlluminance()
+                        print(lux)
+                        if(700< lux):
+                            print(5)
                             move.motorStop()
-                            time.sleep(1)
-                            avoidObstacle()
-                            print('55')
-                            pass2=True
                             break
-                        if(10<(time.time()-start_time)):
-                            print('44')
-                            pass2=True
-                            break
-                    print('77')
-                    if(pass2):
-                        print('66')
-                        break
-                move.move(100,'forward','forward')
-                while True:
-                    print('last1')
-                    lux = readIlluminance()
-                    print(lux)
-                    if(700< lux):
-                        print(5)
-                        move.motorStop()
-                        break
-                    time.sleep(0.2)
-                print(6)
-        except sr.UnknownValueError:
-            print("Sphinx could not understand audio")
-    cv2.imshow('face',normal)
-    cv2.waitKey(10)
+                        time.sleep(0.2)
+                    print(6)
+            except sr.UnknownValueError:
+                print("Sphinx could not understand audio")
+        cv2.imshow('face',normal)
+        cv2.waitKey(10)
 
 
-# Do a bit of cleanup
-print("\n [INFO] Exiting Program and cleanup stuff")
+    # Do a bit of cleanup
+    print("\n [INFO] Exiting Program and cleanup stuff")
 
-# r = sr.Recognizer()
-# with sr.Microphone() as source:
-#     print("Say something!")
-#     audio = r.listen(source)
-# r.recognize_google(audio)
+    # r = sr.Recognizer()
+    # with sr.Microphone() as source:
+    #     print("Say something!")
+    #     audio = r.listen(source)
+    # r.recognize_google(audio)
 
-cam.release()
-cv2.destroyAllWindows()
+    cam.release()
+    cv2.destroyAllWindows()
