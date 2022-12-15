@@ -146,14 +146,9 @@ if __name__ == '__main__':
 	try:
 		speed_set = 60
 		setup()
-		move(100,'forward','forward')
-		time.sleep(2)
-		move(100,'backward','backward')
-		time.sleep(2)
+
 		move(100,'forward','right',1)
-		time.sleep(2)
-		move(100,'forward','left',1)
-		time.sleep(2)
+		time.sleep(20)
 		motorStop()
 		destroy()
 	except KeyboardInterrupt:
