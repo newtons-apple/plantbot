@@ -123,8 +123,12 @@ def avoidObstacle():
     print('avoid')
     move.move(100,'forward','left',1)
     time.sleep(4)
+    move.motorStop()
+    time.sleep(1)
     move.move(100,'forward','forward')
     time.sleep(4)
+    move.motorStop()
+    time.sleep(1)
     move.move(100,'forward','right',1)
     if(5>ultrasonic.checkdist()):
         avoidObstacle()
@@ -240,15 +244,19 @@ while True:
                             move.motorStop()
                             time.sleep(1)
                             avoidObstacle()
+                            print('55')
                             pass2=True
                             break
                         if(10<(time.time()-start_time)):
                             print('44')
                             pass2=True
                             break
+                    print('77')
                     if(pass2):
+                        print('66')
                         break
                 while True:
+                    print('last1')
                     move.move(100,'forward','forward')
                     if(700< readIlluminance()):
                         print(5)
