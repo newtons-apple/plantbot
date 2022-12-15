@@ -4,7 +4,7 @@ from playsound import playsound
 import time
 import move
 
-move.setup()
+# move.setup()
 def dance():
     for t in range(0,4,1):
         print('ab')
@@ -38,4 +38,3 @@ if __name__=='__main__':
     p1.join()
     p2.join()
     move.motorStop()
-    move.destroy()

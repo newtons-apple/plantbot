@@ -10,7 +10,7 @@ import move
 import ultrasonic
 from multiprocessing import Process
 from multiprocessing import freeze_support
-
+import multiprocessingTest
 move.setup()
 I2C_CH = 1
 BH1750_DEV_ADDR = 0x23
@@ -148,6 +148,7 @@ def dance():
         time.sleep(1)
         move.move(100,'forward','left',1)
         time.sleep(1)
+    move.motorStop()
 def sing():
     playsound("christmas_song.wav")
 
@@ -213,13 +214,7 @@ if __name__=='__main__':
                     cv2.imshow('face',happy)
                     cv2.waitKey(10)
                     # sing()
-                    p_a=Process(target=dance)
-                    p_b=Process(target=sing)
-                    p_a.start()
-                    p_b.start()
-                    p_a.join()
-                    p_b.join()
-                    move.motorStop()
+                    multiprocessingTest()
                     cv2.imshow('face',normal)
                     cv2.waitKey(10)
                     time.sleep(1)
