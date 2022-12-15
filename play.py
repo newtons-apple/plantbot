@@ -76,8 +76,8 @@ def lightcheck():
     start_time=time.time()
     while True:
         print('b-2')
-
         lux=readIlluminance()
+        print(lux)
         if(lux>700):
             print('b-3')
 
@@ -219,7 +219,7 @@ while True:
                     lightcheck()
                     print('a-1')
                     move.move(100,'forward','front')
-                    time.sleep(2)
+                    time.sleep(8)
                     print('a-2')
                     lightcheck()
                     start_time=time.time()                  
