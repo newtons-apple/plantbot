@@ -203,13 +203,15 @@ while True:
             if(result == "Merry Christmas"):
                 cv2.imshow('face',happy)
                 cv2.waitKey(10)
+                playsound("christmas_song.wav")
+                time.sleep(0.5)
                 # p_a=Process(target=dance)
-                p_b=Process(target=sing)
+                # p_b=Process(target=sing)
                 # p_a.start()
-                p_b.start()
+                # p_b.start()
                 # time.sleep(14)
                 # p_a.join()
-                p_b.join()
+                # p_b.join()
             if(result == "are you having enough light"):
                 # cv2.imshow('face',sad)
                 # cv2.waitKey(10)
