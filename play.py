@@ -232,6 +232,8 @@ while True:
 
                         if(5>ultrasonic.checkdist()):
                             print(3)
+                            move.motorStop()
+                            time.sleep(1)
                             avoidObstacle()
                             break
                         if(10<(time.time()-start_time)):
