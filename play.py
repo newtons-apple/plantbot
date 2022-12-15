@@ -225,7 +225,7 @@ if __name__=='__main__':
                     th1.join()
                     th2.join()
                     move.motorStop()
-
+                    print(1)
                     cv2.imshow('face',normal)
                     cv2.waitKey(10)
                     time.sleep(1)
