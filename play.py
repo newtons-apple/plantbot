@@ -5,7 +5,6 @@ import speech_recognition as sr
 from playsound import playsound
 import time
 import smbus
-import threading
 import time
 import move
 import ultrasonic
@@ -89,18 +88,24 @@ def lightcheck():
 #장애물 피하기
 def avoidObstacle():
 
-    move.motor_right(1,1,100)
+    move.move(100,'forward','rigth',1)
     time.sleep(0.5)
     move.move(100,'forward','forward')
     time.sleep(0.5)
-    move.motor_left(1,1,100)
+    move.move(100,'forward','left',1)
     if(5>ultrasonic.checkdist()):
         avoidObstacle()
         return
     time.sleep(0.5)
     move.move(100,'forward','forward')
     time.sleep(0.5)
-
+#춤추기
+def dance():
+    for t in range(0,50):
+        move.move(100,'forward','forward')
+        time.sleep(0.5)
+        move.move(100,'backward','backward')
+        time.sleep(0.5)
 
 
 
