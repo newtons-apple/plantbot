@@ -56,7 +56,7 @@ minW = 0.1*cam.get(3)
 minH = 0.1*cam.get(4)
 
 #한바퀴 도는데 걸리는 시간
-one_turn_time=15
+one_turn_time=16
 
 #light sensor 
 def readIlluminance():
@@ -131,7 +131,8 @@ def sing():
 master = False
 while True:
     ret, img =cam.read()
-    img = cv2.flip(img, 1) 
+    img = cv2.flip(img, 1)
+    frame = cv2.flip(frame, -1)
     gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
     
     faces = faceCascade.detectMultiScale( 
