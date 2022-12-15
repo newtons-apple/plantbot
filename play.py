@@ -8,6 +8,7 @@ import smbus
 import time
 import move
 import ultrasonic
+from multiprocessing import Process
 
 move.setup()
 I2C_CH = 1
@@ -71,7 +72,7 @@ def readIlluminance():
 #lightcheck
 def lightcheck():
     start_time=time.time()
-    move.motor_right()
+    move.move(100,'forward','rigth',1)
     maxValue=[0,0]
     while True:
         lux=readIlluminance()
@@ -102,12 +103,17 @@ def avoidObstacle():
     time.sleep(0.5)
 #춤추기
 def dance():
-    for t in range(0,50):
+    for t in range(0,7,1):
         move.move(100,'forward','forward')
         time.sleep(0.5)
         move.move(100,'backward','backward')
         time.sleep(0.5)
-
+        move.move(100,'forward','rigth',1)
+        time.sleep(0.5)
+        move.move(100,'forward','left',1)
+        time.sleep(0.5)
+def sing():
+    playsound("christmas_song.wav")
 
 
 master = False
@@ -131,7 +137,7 @@ while True:
             # confidence = "  {0}%".format(round(100 - confidence))
             cv2.imshow('face',happy)
             cv2.waitKey(10)
-            playsound("christmas_song.wav")
+            playsound("hello.wav")
             time.sleep(1)
             cv2.imshow('face',normal)
             cv2.waitKey(10)
@@ -162,27 +168,35 @@ while True:
     with sr.Microphone() as source:
         print("Say something!")
         audio = r.listen(source,10,5)
-        result = r.recognize_google(audio)
-        if(result == "Merry Christmas"):
-            cv2.imshow('face',happy)
-            cv2.waitKey(10)
-            playsound("christmas_song.wav")
-            time.sleep(0.5)
-        if(result == "lack of light"):
-            cv2.imshow('face',sad)
-            cv2.waitKey(10)
-            playsound("christmas_song.wav")
-            time.sleep(0.5)
-            while True:
-                result=lightcheck()
-                move.move(100,'forward','front')
-                start_time=time.time()
-                while (2<time.time()-start_time):
-                    #장애물 만나면
-                    if(5>ultrasonic.checkdist()):
-                        avoidObstacle()                  
-                if(1000< readIlluminance()):
-                    break
+        try:
+            result = r.recognize_google(audio)
+            if(result == "Merry Christmas"):
+                cv2.imshow('face',happy)
+                cv2.waitKey(10)
+                p_a=Process(target=dance)
+                p_b=Process(target=sing)
+                p_a.start()
+                p_b.start()
+                time.sleep(14)
+                p_a.join()
+                p_b.join()
+            if(result == "are you having enough light"):
+                cv2.imshow('face',sad)
+                cv2.waitKey(10)
+                playsound("no.wav")
+                time.sleep(0.5)
+                while True:
+                    result=lightcheck()
+                    move.move(100,'forward','front')
+                    start_time=time.time()
+                    while (2<time.time()-start_time):
+                        #장애물 만나면
+                        if(5>ultrasonic.checkdist()):
+                            avoidObstacle()                  
+                    if(1000< readIlluminance()):
+                        break
+        except sr.UnknownValueError:
+            print("Sphinx could not understand audio")
     cv2.imshow('face',normal)
     cv2.waitKey(10)
 
