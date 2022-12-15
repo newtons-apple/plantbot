@@ -13,18 +13,15 @@ Ec = 24
 
 def checkdist():#Reading distance
 	GPIO.setmode(GPIO.BOARD)
-    print('1')
 	GPIO.setup(Tr, GPIO.OUT,initial=GPIO.LOW)
 	GPIO.setup(Ec, GPIO.IN)
 	GPIO.output(Tr, GPIO.HIGH)
 	time.sleep(0.000015)
 	GPIO.output(Tr, GPIO.LOW)
 	while not GPIO.input(Ec):
-        print(1)
 		pass
 	t1 = time.time()
 	while GPIO.input(Ec):
-        print(2)
 		pass
 	t2 = time.time()
 
