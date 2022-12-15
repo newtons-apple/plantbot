@@ -21,12 +21,9 @@ def checkdist():#Reading distance
 	GPIO.output(Tr, GPIO.LOW)
 	print('u-2')
 	while not GPIO.input(Ec):
-		print('u-3')
 		pass
 	t1 = time.time()
-	print('u-4')
 	while GPIO.input(Ec):
-		print('u-5')
 		pass
 	t2 = time.time()
 	print('u-6')

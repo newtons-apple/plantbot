@@ -72,6 +72,8 @@ def readIlluminance():
 #lightcheck
 def lightcheck():
     print('b-1')
+    move.motorStop()
+    time.time(1)
     move.move(100,'forward','right',1)
     start_time=time.time()
     while True:
@@ -82,7 +84,7 @@ def lightcheck():
             print('b-3')
 
             move.motorStop()
-            time.sleep(0.5)
+            time.sleep(1)
             break
         if(17<time.time()-start_time):
             print('b-4')
@@ -222,10 +224,11 @@ while True:
                     lightcheck()
                     print('a-1')
                     move.move(100,'forward','front')
-                    time.sleep(8)
+                    time.sleep(5)
                     print('a-2')
                     lightcheck()
-                    start_time=time.time()                  
+                    start_time=time.time()
+                    pass2=False                 
                     while True:
                         move.move(100,'forward','front')
                         print(2)
@@ -237,15 +240,21 @@ while True:
                             move.motorStop()
                             time.sleep(1)
                             avoidObstacle()
+                            pass2=True
                             break
                         if(10<(time.time()-start_time)):
                             print('44')
-                            break     
+                            pass2=True
+                            break
+                    if(pass2):
+                        break
+                while True:
+                    move.move(100,'forward','forward')
                     if(700< readIlluminance()):
                         print(5)
                         move.motorStop()
                         break
-                    print(6)
+                print(6)
         except sr.UnknownValueError:
             print("Sphinx could not understand audio")
     cv2.imshow('face',normal)
