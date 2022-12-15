@@ -87,7 +87,7 @@ def lightcheck():
             print('b-4')
 
             break
-        time.sleep(0.05)
+        time.sleep(0.5)
     # start_time=time.time()
     # move.move(100,'forward','right',1)
     # print('b-2')
