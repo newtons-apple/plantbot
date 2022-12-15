@@ -73,7 +73,7 @@ def readIlluminance():
 def lightcheck():
     print('b-1')
     move.motorStop()
-    time.time(1)
+    time.sleep(1)
     move.move(100,'forward','right',1)
     start_time=time.time()
     while True:
