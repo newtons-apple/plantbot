@@ -148,7 +148,7 @@ if __name__ == '__main__':
 		setup()
 
 		move(100,'forward','right',1)
-		time.sleep(20)
+		time.sleep(2)
 		motorStop()
 		destroy()
 	except KeyboardInterrupt:
