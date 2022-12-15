@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import os
 import speech_recognition as sr
+from playsound import playsound
 
 chunk = 1024
 
@@ -20,13 +21,14 @@ names = ['None', 'jiwon']
 
 #우리가 사용할 표정 이미지 추가하기
 happy= cv2.imread("happy.jpg",cv2.IMREAD_ANYCOLOR)
-normal = cv2.imread("normal.png")
+normal = cv2.imread("normal.jpg")
+sad = cv2.imread("sad.jpg")
 
 #이미지 띄울 창 만들기
 cv2.namedWindow('face', cv2.WINDOW_NORMAL)
-cv2.setWindowProperty('face',cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+# cv2.setWindowProperty('face',cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 cv2.imshow('face',normal)
-
+cv2.waitKey(1000)
 # Initialize and start realtime video capture
 cam = cv2.VideoCapture(0)
 cam.set(3, 640) # set video widht
@@ -57,6 +59,10 @@ while True:
             id = names[id]
             # confidence = "  {0}%".format(round(100 - confidence))
             cv2.imshow('face',happy)
+            cv2.waitKey(10)
+            playsound("christmas_song.wav")
+            cv2.imshow('face',normal)
+            cv2.waitKey(10)
             master = True
             break
 
@@ -64,7 +70,7 @@ while True:
 
         else:
             id = "unknown"
-            confidence = "  {0}%".format(round(100 - confidence))
+            # confidence = "  {0}%".format(round(100 - confidence))
         
     #     cv2.putText(img, str(id), (x+5,y-5), font, 1, (255,255,255), 2)
     #     cv2.putText(img, str(confidence), (x+5,y+h-5), font, 1, (255,255,0), 1)  

@@ -13,20 +13,23 @@ cv2.namedWindow('face', cv2.WINDOW_NORMAL)
 # x = input()
 # cv2.waitKey(int(x))
 # cv2.destroyAllWindows()
+cv2.imshow('face',a)
+cv2.waitKey(10)
+cv2.imshow('face',happy)
+cv2.waitKey(10)
+time.sleep(5)
+# while True:
 
-while True:
-    cv2.imshow('face',a)
-    cv2.waitKey(1000)
 
-    # time.sleep(5)
+#     # time.sleep(5)
 
-    print('Enter your name:')
-    x = input()
+#     print('Enter your name:')
+#     x = input()
 
-    if(x=='1'):
-        a=happy
-    if(x=='2'):
-        a=normal
-    if(x=='3'):
-        cv2.destroyAllWindows()
-        break
+#     if(x=='1'):
+#         a=happy
+#     if(x=='2'):
+#         a=normal
+#     if(x=='3'):
+#         cv2.destroyAllWindows()
+#         break
