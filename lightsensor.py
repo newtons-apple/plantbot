@@ -33,13 +33,4 @@ def readIlluminanceThread():
 
 print('starting BH1750')
 print('Press Enter key to exit')
-# 쓰레드 생성
-thd = threading.Thread(target=readIlluminanceThread)
-# 쓰레드를 데몬으로 설정
-thd.daemon = True
-# 쓰레드 시작
-thd.start()
-# 키 입력 대기, 엔터 키가 입력이 되면 다음으로 넘어가서 'done'을 출력하고 프로그램 종료
-input()
-print('done')
-# 이때 쓰레드도 함께 종료 됨.
+readIlluminanceThread()
