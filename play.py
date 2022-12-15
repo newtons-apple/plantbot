@@ -56,7 +56,7 @@ minW = 0.1*cam.get(3)
 minH = 0.1*cam.get(4)
 
 #한바퀴 도는데 걸리는 시간
-one_turn_time=8
+one_turn_time=15
 
 #light sensor 
 def readIlluminance():
@@ -193,7 +193,8 @@ while True:
                         #장애물 만나면
                         if(5>ultrasonic.checkdist()):
                             avoidObstacle()                  
-                    if(1000< readIlluminance()):
+                    if(1000< readIlluminance())
+                        move.motorStop()
                         break
         except sr.UnknownValueError:
             print("Sphinx could not understand audio")
