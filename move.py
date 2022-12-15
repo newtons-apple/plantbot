@@ -19,6 +19,8 @@ Motor_A_Pin2  = 15
 Motor_B_Pin1  = 27
 Motor_B_Pin2  = 18
 
+Tr = 23
+Ec = 24
 Dir_forward   = 0
 Dir_backward  = 1
 
@@ -50,6 +52,8 @@ def setup():#Motor initialization
 	GPIO.setup(Motor_A_Pin2, GPIO.OUT)
 	GPIO.setup(Motor_B_Pin1, GPIO.OUT)
 	GPIO.setup(Motor_B_Pin2, GPIO.OUT)
+	GPIO.setup(Tr, GPIO.OUT,initial=GPIO.LOW)
+	GPIO.setup(Ec, GPIO.IN)
 
 	motorStop()
 	try:

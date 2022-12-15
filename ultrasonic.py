@@ -12,9 +12,7 @@ Tr = 23
 Ec = 24
 
 def checkdist():#Reading distance
-	GPIO.setmode(GPIO.BOARD)
-	GPIO.setup(Tr, GPIO.OUT,initial=GPIO.LOW)
-	GPIO.setup(Ec, GPIO.IN)
+
 	GPIO.output(Tr, GPIO.HIGH)
 	time.sleep(0.000015)
 	GPIO.output(Tr, GPIO.LOW)
