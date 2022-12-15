@@ -9,6 +9,7 @@ import time
 import move
 import ultrasonic
 
+move.setup()
 I2C_CH = 1
 BH1750_DEV_ADDR = 0x23
 
@@ -54,7 +55,7 @@ minW = 0.1*cam.get(3)
 minH = 0.1*cam.get(4)
 
 #한바퀴 도는데 걸리는 시간
-one_turn_time=1
+one_turn_time=8
 
 #light sensor 
 def readIlluminance():
@@ -182,10 +183,6 @@ while True:
                         avoidObstacle()                  
                 if(1000< readIlluminance()):
                     break
-            
-                
-
-
     cv2.imshow('face',normal)
     cv2.waitKey(10)
 
