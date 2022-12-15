@@ -11,6 +11,8 @@ import ultrasonic
 from multiprocessing import Process
 from multiprocessing import freeze_support
 import multiprocessingTest
+from threading import Thread
+
 move.setup()
 I2C_CH = 1
 BH1750_DEV_ADDR = 0x23
@@ -214,7 +216,16 @@ if __name__=='__main__':
                     cv2.imshow('face',happy)
                     cv2.waitKey(10)
                     # sing()
-                    multiprocessingTest.multi()
+                    # multiprocessingTest.multi()
+                    th1 = Thread(target=dance)
+                    th2 = Thread(target=sing)
+                    
+                    th1.start()
+                    th2.start()
+                    th1.join()
+                    th2.join()
+                    move.motorStop()
+
                     cv2.imshow('face',normal)
                     cv2.waitKey(10)
                     time.sleep(1)
