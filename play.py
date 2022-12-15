@@ -143,13 +143,13 @@ def avoidObstacle():
 def dance():
     for t in range(0,4,1):
         move.move(100,'forward','forward')
-        time.sleep(1)
+        time.sleep(0.9)
         move.move(100,'backward','backward')
-        time.sleep(1)
+        time.sleep(0.9)
         move.move(100,'forward','right',1)
-        time.sleep(1)
+        time.sleep(0.9)
         move.move(100,'forward','left',1)
-        time.sleep(1)
+        time.sleep(0.9)
     move.motorStop()
 def sing():
     playsound("christmas_song.wav")
@@ -224,6 +224,8 @@ if __name__=='__main__':
                     th2.start()
                     th1.join()
                     th2.join()
+                    pid = os.getpid()
+                    os.kill(pid, 2)
                     move.motorStop()
                     print(1)
                     cv2.imshow('face',normal)
