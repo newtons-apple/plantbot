@@ -141,7 +141,7 @@ def avoidObstacle():
     time.sleep(4)
 #춤추기
 def dance():
-    for t in range(0,7,1):
+    for t in range(0,4,1):
         move.move(100,'forward','forward')
         time.sleep(1)
         move.move(100,'backward','backward')
