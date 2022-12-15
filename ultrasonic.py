@@ -13,13 +13,13 @@ Ec = 24
 
 def checkdist():#Reading distance
 	print('u-1')
+	GPIO.setmode(GPIO.BCM)
 	GPIO.setup(Tr, GPIO.OUT,initial=GPIO.LOW)
 	GPIO.setup(Ec, GPIO.IN)
 	GPIO.output(Tr, GPIO.HIGH)
 	time.sleep(0.000015)
 	GPIO.output(Tr, GPIO.LOW)
 	print('u-2')
-	print
 	while not GPIO.input(Ec):
 		print('u-3')
 		pass
