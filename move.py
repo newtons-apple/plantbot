@@ -1,5 +1,5 @@
 import time
-import RPI.GPIO as GPIO
+import RPi.GPIO as GPIO
 
 Motor_A_EN    = 4 
 Motor_A_Pin1  = 26
