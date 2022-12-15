@@ -126,7 +126,7 @@ def avoidObstacle():
     move.motorStop()
     time.sleep(1)
     move.move(100,'forward','forward')
-    time.sleep(4)
+    time.sleep(8)
     move.motorStop()
     time.sleep(1)
     move.move(100,'forward','right',1)
@@ -210,7 +210,8 @@ if __name__=='__main__':
                     cv2.imshow('face',happy)
                     cv2.waitKey(10)
                     sing()
-                    time.sleep(0.5)
+                    cv2.imshow('face',normal)
+                    time.sleep(1)
                     # p_a=Process(target=dance)
                     # p_b=Process(target=sing)
                     # p_a.start()
@@ -238,7 +239,7 @@ if __name__=='__main__':
                             #장애물 만나면
                             print(ultrasonic.checkdist())
 
-                            if(5>ultrasonic.checkdist()):
+                            if(10>ultrasonic.checkdist()):
                                 print(3)
                                 move.motorStop()
                                 time.sleep(1)
