@@ -37,3 +37,5 @@ if __name__=='__main__':
     # join으로 각 프로세스가 종료되길 기다립니다 p1.join()이 끝난 후 p2.join()을 수행합니다
     p1.join()
     p2.join()
+    move.motorStop()
+    move.destroy()

@@ -9,6 +9,7 @@ import time
 import move
 import ultrasonic
 from multiprocessing import Process
+from multiprocessing import freeze_support
 
 move.setup()
 I2C_CH = 1
@@ -140,17 +141,19 @@ def avoidObstacle():
 def dance():
     for t in range(0,7,1):
         move.move(100,'forward','forward')
-        time.sleep(0.5)
+        time.sleep(1)
         move.move(100,'backward','backward')
-        time.sleep(0.5)
+        time.sleep(1)
         move.move(100,'forward','right',1)
-        time.sleep(0.5)
+        time.sleep(1)
         move.move(100,'forward','left',1)
-        time.sleep(0.5)
+        time.sleep(1)
 def sing():
     playsound("christmas_song.wav")
 
 if __name__=='__main__':
+    freeze_support()
+
     master = False
     while True:
         ret, img =cam.read()
@@ -209,15 +212,17 @@ if __name__=='__main__':
                 if(result == "Merry Christmas"):
                     cv2.imshow('face',happy)
                     cv2.waitKey(10)
-                    sing()
+                    # sing()
+                    p_a=Process(target=dance)
+                    p_b=Process(target=sing)
+                    p_a.start()
+                    p_b.start()
+                    p_a.join()
+                    p_b.join()
+                    move.motorStop()
                     cv2.imshow('face',normal)
+                    cv2.waitKey(10)
                     time.sleep(1)
-                    # p_a=Process(target=dance)
-                    # p_b=Process(target=sing)
-                    # p_a.start()
-                    # p_b.start()
-                    # p_a.join()
-                    # p_b.join()
                 if(result == "are you having enough light"):
                     cv2.imshow('face',sad)
                     cv2.waitKey(10)
