@@ -30,7 +30,8 @@ cv2.namedWindow('face', cv2.WINDOW_NORMAL)
 cv2.imshow('face',normal)
 cv2.waitKey(1000)
 # Initialize and start realtime video capture
-cam = cv2.VideoCapture(0)
+#window는 videoCapture(0) , linux는 videoCapture(-1)
+cam = cv2.VideoCapture(-1)
 cam.set(3, 640) # set video widht
 cam.set(4, 480) # set video height
 
