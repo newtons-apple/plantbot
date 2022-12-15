@@ -1,7 +1,6 @@
 import cv2
 import numpy as np
 import os
-import winsound
 import speech_recognition as sr
 
 chunk = 1024
@@ -58,7 +57,6 @@ while True:
             id = names[id]
             # confidence = "  {0}%".format(round(100 - confidence))
             cv2.imshow('face',happy)
-            # winsound.PlaySound("mechatronics.wav", winsound.SND_FILENAME)
             master = True
             break
 
