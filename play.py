@@ -223,12 +223,13 @@ while True:
                     # time.sleep(8)
                     # print('a-2')
                     # lightcheck()
-                    # start_time=time.time()                  
+                    start_time=time.time()                  
                     while True:
                         move.move(100,'forward','front')
                         print(2)
                         #장애물 만나면
                         print(ultrasonic.checkdist())
+
                         if(5>ultrasonic.checkdist()):
                             print(3)
                             avoidObstacle()
