@@ -82,12 +82,13 @@ def lightcheck():
             print('b-3')
 
             move.motorStop()
+            time.sleep(0.5)
             break
         if(17<time.time()-start_time):
             print('b-4')
 
             break
-        time.sleep(0.5)
+        time.sleep(0.2)
     # start_time=time.time()
     # move.move(100,'forward','right',1)
     # print('b-2')
