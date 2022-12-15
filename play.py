@@ -72,32 +72,39 @@ def readIlluminance():
 #lightcheck
 def lightcheck():
     print('b-1')
-    start_time=time.time()
     move.move(100,'forward','right',1)
-    print('b-2')
-    maxValue=[0,0]
     while True:
-        print('b-3')
         lux=readIlluminance()
-        print(lux)
-        if(lux>maxValue[0]):
-            print('b-4')
-
-            maxValue=[lux,time.time()]
-        time.sleep(0.05)
-        print('b-5')
-
-        if(one_turn_time<time.time()-start_time):
-            print('b-6')
-            break
-    restart_time=time.time()
-    print('b-7')
-    while True:
-        print('b-8')
-        if(maxValue[1]-start_time<time.time()-restart_time):
+        if(lux>700):
             move.motorStop()
-            print('b-9')
             break
+        time.sleep(0.05)
+    # start_time=time.time()
+    # move.move(100,'forward','right',1)
+    # print('b-2')
+    # maxValue=[0,0]
+    # while True:
+    #     print('b-3')
+    #     lux=readIlluminance()
+    #     print(lux)
+    #     if(lux>maxValue[0]):
+    #         print('b-4')
+
+    #         maxValue=[lux,time.time()]
+    #     time.sleep(0.05)
+    #     print('b-5')
+
+    #     if(one_turn_time<time.time()-start_time):
+    #         print('b-6')
+    #         break
+    # restart_time=time.time()
+    # print('b-7')
+    # while True:
+    #     print('b-8')
+    #     if(maxValue[1]-start_time<time.time()-restart_time):
+    #         move.motorStop()
+    #         print('b-9')
+    #         break
 
 #장애물 피하기
 def avoidObstacle():
