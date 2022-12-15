@@ -72,7 +72,7 @@ def readIlluminance():
 #lightcheck
 def lightcheck():
     start_time=time.time()
-    move.move(100,'forward','rigth',1)
+    move.move(100,'forward','right',1)
     maxValue=[0,0]
     while True:
         lux=readIlluminance()
@@ -108,7 +108,7 @@ def dance():
         time.sleep(0.5)
         move.move(100,'backward','backward')
         time.sleep(0.5)
-        move.move(100,'forward','rigth',1)
+        move.move(100,'forward','right',1)
         time.sleep(0.5)
         move.move(100,'forward','left',1)
         time.sleep(0.5)
@@ -173,12 +173,12 @@ while True:
             if(result == "Merry Christmas"):
                 cv2.imshow('face',happy)
                 cv2.waitKey(10)
-                p_a=Process(target=dance)
+                # p_a=Process(target=dance)
                 p_b=Process(target=sing)
-                p_a.start()
+                # p_a.start()
                 p_b.start()
-                time.sleep(14)
-                p_a.join()
+                # time.sleep(14)
+                # p_a.join()
                 p_b.join()
             if(result == "are you having enough light"):
                 cv2.imshow('face',sad)
@@ -186,10 +186,10 @@ while True:
                 playsound("no.wav")
                 time.sleep(0.5)
                 while True:
-                    result=lightcheck()
+                    lightcheck()
                     move.move(100,'forward','front')
                     start_time=time.time()
-                    while (2<time.time()-start_time):
+                    while (2>time.time()-start_time):
                         #장애물 만나면
                         if(5>ultrasonic.checkdist()):
                             avoidObstacle()                  
