@@ -60,21 +60,20 @@ def move(speed, direction, turn, radius=0.6):   # 0 < radius <= 1
     else:  
 
         pass
-if __name__ == '__main__':  
-    try:  
+if __name__ == '__main__':
+    try:
 
-       speed_set = 60  
+       speed_set = 60
 
-       setup()  
+       setup()
 
-       move(speed_set, 'forward', 'no', 0.8)  
+       move(speed_set, 'forward', 'no', 0.8)
 
-       time.sleep(1.3)  
+       time.sleep(1.3)
 
-       motorStop()  
+       motorStop()
 
-       destroy()  
+       destroy()
 
-   except KeyboardInterrupt:  
-
-       destroy()  
+   except KeyboardInterrupt:
+       destroy()
