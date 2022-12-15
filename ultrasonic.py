@@ -24,7 +24,7 @@ def checkdist():#Reading distance
 	while GPIO.input(Ec):
 		pass
 	t2 = time.time()
-	return (t2-t1)*340/2
+	return (t2-t1)*340/2/100
 
 try:
         pass

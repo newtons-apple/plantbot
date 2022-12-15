@@ -3,7 +3,22 @@ import numpy as np
 import os
 import speech_recognition as sr
 from playsound import playsound
+import time
+import smbus
+import threading
+import time
+import move
+import ultrasonic
 
+I2C_CH = 1
+BH1750_DEV_ADDR = 0x23
+
+CONT_H_RES_MODE     = 0x10
+CONT_H_RES_MODE2    = 0x11
+CONT_L_RES_MODE     = 0x13
+ONETIME_H_RES_MODE  = 0x20
+ONETIME_H_RES_MODE2 = 0x21
+ONETIME_L_RES_MODE  = 0x23
 chunk = 1024
 
 recognizer = cv2.face.LBPHFaceRecognizer_create()
@@ -31,13 +46,62 @@ cv2.imshow('face',normal)
 cv2.waitKey(1000)
 # Initialize and start realtime video capture
 #window는 videoCapture(0) , linux는 videoCapture(-1)
-cam = cv2.VideoCapture(-1)
+cam = cv2.VideoCapture(0)
 cam.set(3, 640) # set video widht
 cam.set(4, 480) # set video height
 
 # Define min window size to be recognized as a face
 minW = 0.1*cam.get(3)
 minH = 0.1*cam.get(4)
+
+#한바퀴 도는데 걸리는 시간
+one_turn_time=1
+
+#light sensor 
+def readIlluminance():
+    i2c = smbus.SMBus(I2C_CH)
+    luxBytes = i2c.read_i2c_block_data(BH1750_DEV_ADDR, CONT_H_RES_MODE, 2)
+    lux = int.from_bytes(luxBytes, byteorder='big')
+    i2c.close()
+    return lux
+
+'''
+ 1초에 한번씩 돌면서 조도값 출력
+'''
+#lightcheck
+def lightcheck():
+    start_time=time.time()
+    move.motor_right()
+    maxValue=[0,0]
+    while True:
+        lux=readIlluminance()
+        if(lux>maxValue[0]):
+            maxValue=[lux,time.time()]
+        time.sleep(0.05)
+        if(one_turn_time<time.time()-start_time):
+            break
+    restart_time=time.time()
+    while True:
+        if(maxValue[1]-start_time<time.time()-restart_time):
+            move.motorStop()
+            break
+
+#장애물 피하기
+def avoidObstacle():
+
+    move.motor_right(1,1,100)
+    time.sleep(0.5)
+    move.move(100,'forward','forward')
+    time.sleep(0.5)
+    move.motor_left(1,1,100)
+    if(5>ultrasonic.checkdist()):
+        avoidObstacle()
+        return
+    time.sleep(0.5)
+    move.move(100,'forward','forward')
+    time.sleep(0.5)
+
+
 
 
 master = False
@@ -62,6 +126,7 @@ while True:
             cv2.imshow('face',happy)
             cv2.waitKey(10)
             playsound("christmas_song.wav")
+            time.sleep(1)
             cv2.imshow('face',normal)
             cv2.waitKey(10)
             master = True
@@ -77,6 +142,7 @@ while True:
     #     cv2.putText(img, str(confidence), (x+5,y+h-5), font, 1, (255,255,0), 1)  
     # cv2.imshow('camera',img) 
     if master:
+        master=False
         break
 
 
@@ -84,6 +150,40 @@ while True:
     k = cv2.waitKey(10) & 0xff # Press 'ESC' for exiting video
     if k == 27:
         break
+
+while True:
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Say something!")
+        audio = r.listen(source,10,3)
+        result = r.recognize_google(audio)
+        if(result == "Merry Christmas"):
+            cv2.imshow('face',happy)
+            cv2.waitKey(10)
+            playsound("christmas_song.wav")
+            time.sleep(0.5)
+        if(result == "lack of light"):
+            cv2.imshow('face',sad)
+            cv2.waitKey(10)
+            playsound("christmas_song.wav")
+            time.sleep(0.5)
+            while True:
+                result=lightcheck()
+                move.move(100,'forward','front')
+                start_time=time.time()
+                while (2<time.time()-start_time):
+                    #장애물 만나면
+                    if(5>ultrasonic.checkdist()):
+                        avoidObstacle()                  
+                if(1000< readIlluminance()):
+                    break
+            
+                
+
+
+    cv2.imshow('face',normal)
+    cv2.waitKey(10)
+
 
 # Do a bit of cleanup
 print("\n [INFO] Exiting Program and cleanup stuff")
