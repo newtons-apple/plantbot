@@ -5,6 +5,8 @@ Motor_A_EN    = 4
 Motor_A_Pin1  = 26
 Motor_A_Pin2  = 21 
 
+
+
 def setup():#Motor initialization  
 
     global pwm_A  
@@ -28,7 +30,9 @@ def setup():#Motor initialization
     except:  
 
         pass
-
+def motorStop():
+    pwm_A = GPIO.PWM(Motor_A_EN, 0)
+    
 def destroy():  
     motorStop()  
     GPIO.cleanup()
