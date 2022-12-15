@@ -161,7 +161,7 @@ while True:
     r = sr.Recognizer()
     with sr.Microphone() as source:
         print("Say something!")
-        audio = r.listen(source,10,3)
+        audio = r.listen(source,10,5)
         result = r.recognize_google(audio)
         if(result == "Merry Christmas"):
             cv2.imshow('face',happy)
