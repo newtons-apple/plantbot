@@ -203,12 +203,15 @@ while True:
                     move.move(100,'forward','front')
                     print('a-2')
                     start_time=time.time()
-                    while (2>time.time()-start_time):
+                    while True:
                         print(2)
                         #장애물 만나면
                         if(5>ultrasonic.checkdist()):
                             print(3)
-                            avoidObstacle()           
+                            avoidObstacle()
+                        if(2>(time.time()-start_time)):
+                            print('44')
+                            break         
                     print(4)       
                     if(1000< readIlluminance()):
                         print(5)
