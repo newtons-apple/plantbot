@@ -71,20 +71,31 @@ def readIlluminance():
 '''
 #lightcheck
 def lightcheck():
+    print('b-1')
     start_time=time.time()
     move.move(100,'forward','right',1)
+    print('b-2')
     maxValue=[0,0]
     while True:
+        print('b-3')
         lux=readIlluminance()
         if(lux>maxValue[0]):
+            print('b-4')
+
             maxValue=[lux,time.time()]
         time.sleep(0.05)
+        print('b-5')
+
         if(one_turn_time<time.time()-start_time):
+            print('b-6')
             break
     restart_time=time.time()
+    print('b-7')
     while True:
+        print('b-8')
         if(maxValue[1]-start_time<time.time()-restart_time):
             move.motorStop()
+            print('b-9')
             break
 
 #장애물 피하기
@@ -186,16 +197,24 @@ while True:
                 playsound("no.wav")
                 time.sleep(0.5)
                 while True:
+                    print(1)
                     lightcheck()
+                    print('a-1')
                     move.move(100,'forward','front')
+                    print('a-2')
                     start_time=time.time()
                     while (2>time.time()-start_time):
+                        print(2)
                         #장애물 만나면
                         if(5>ultrasonic.checkdist()):
-                            avoidObstacle()                  
+                            print(3)
+                            avoidObstacle()           
+                    print(4)       
                     if(1000< readIlluminance()):
+                        print(5)
                         move.motorStop()
                         break
+                    print(6)
         except sr.UnknownValueError:
             print("Sphinx could not understand audio")
     cv2.imshow('face',normal)
