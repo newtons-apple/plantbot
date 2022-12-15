@@ -255,13 +255,16 @@ while True:
                     if(pass2):
                         print('66')
                         break
+                move.move(100,'forward','forward')
                 while True:
                     print('last1')
-                    move.move(100,'forward','forward')
-                    if(700< readIlluminance()):
+                    lux = readIlluminance()
+                    print(lux)
+                    if(700< lux):
                         print(5)
                         move.motorStop()
                         break
+                    time.sleep(0.2)
                 print(6)
         except sr.UnknownValueError:
             print("Sphinx could not understand audio")
