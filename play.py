@@ -122,12 +122,16 @@ def lightcheck():
 #장애물 피하기
 def avoidObstacle():
     print('avoid')
+    move.move(100,'backward','backward',1)
+    time.sleep(2)
+    move.motorStop()
+    time.sleep(0.5)
     move.move(100,'forward','left',1)
     time.sleep(4)
     move.motorStop()
     time.sleep(1)
     move.move(100,'forward','forward')
-    time.sleep(8)
+    time.sleep(5)
     move.motorStop()
     time.sleep(1)
     move.move(100,'forward','right',1)
