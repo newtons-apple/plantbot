@@ -75,5 +75,5 @@ if __name__ == '__main__':
 
        destroy()
 
-   except KeyboardInterrupt:
+    except KeyboardInterrupt:
        destroy()
