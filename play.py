@@ -73,10 +73,19 @@ def readIlluminance():
 def lightcheck():
     print('b-1')
     move.move(100,'forward','right',1)
+    start_time=time.time()
     while True:
+        print('b-2')
+
         lux=readIlluminance()
         if(lux>700):
+            print('b-3')
+
             move.motorStop()
+            break
+        if(17<time.time()-start_time):
+            print('b-4')
+
             break
         time.sleep(0.05)
     # start_time=time.time()
@@ -109,17 +118,17 @@ def lightcheck():
 #장애물 피하기
 def avoidObstacle():
 
-    move.move(100,'forward','rigth',1)
-    time.sleep(0.5)
-    move.move(100,'forward','forward')
-    time.sleep(0.5)
     move.move(100,'forward','left',1)
+    time.sleep(4)
+    move.move(100,'forward','forward')
+    time.sleep(4)
+    move.move(100,'forward','right',1)
     if(5>ultrasonic.checkdist()):
         avoidObstacle()
         return
-    time.sleep(0.5)
+    time.sleep(4)
     move.move(100,'forward','forward')
-    time.sleep(0.5)
+    time.sleep(4)
 #춤추기
 def dance():
     for t in range(0,7,1):
@@ -210,19 +219,23 @@ while True:
                     lightcheck()
                     print('a-1')
                     move.move(100,'forward','front')
+                    time.sleep(2)
                     print('a-2')
-                    start_time=time.time()
+                    lightcheck()
+                    start_time=time.time()                  
                     while True:
+                        move.move(100,'forward','front')
                         print(2)
                         #장애물 만나면
+                        print(ultrasonic.checkdist())
                         if(5>ultrasonic.checkdist()):
                             print(3)
                             avoidObstacle()
-                        if(2>(time.time()-start_time)):
+                            break
+                        if(10>(time.time()-start_time)):
                             print('44')
-                            break         
-                    print(4)       
-                    if(1000< readIlluminance()):
+                            break     
+                    if(700< readIlluminance()):
                         print(5)
                         move.motorStop()
                         break
