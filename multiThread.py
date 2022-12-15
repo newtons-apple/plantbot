@@ -2,6 +2,7 @@ from threading import Thread
 from playsound import playsound
 import time
 import move
+move.setup()
 def dance():
     for t in range(0,4,1):
         print('ab')
