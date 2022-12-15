@@ -31,8 +31,8 @@ def setup():#Motor initialization
 
         pass
 def motorStop():
-    pwm_A = GPIO.PWM(Motor_A_EN, 0)
-    
+    pwm_A.ChangeDutyCycle(0)
+
 def destroy():  
     motorStop()  
     GPIO.cleanup()
