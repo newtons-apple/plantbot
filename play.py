@@ -79,6 +79,7 @@ def lightcheck():
     while True:
         print('b-3')
         lux=readIlluminance()
+        print(lux)
         if(lux>maxValue[0]):
             print('b-4')
 
