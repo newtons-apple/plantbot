@@ -132,7 +132,7 @@ master = False
 while True:
     ret, img =cam.read()
     img = cv2.flip(img, 1)
-    frame = cv2.flip(frame, -1)
+    img = cv2.flip(img, -1)
     gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
     
     faces = faceCascade.detectMultiScale( 
