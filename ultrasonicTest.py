@@ -12,6 +12,7 @@ Tr = 23
 Ec = 24
 
 def checkdist():#Reading distance
+    print('start')
 	GPIO.setmode(GPIO.BOARD)
 	GPIO.setup(Tr, GPIO.OUT,initial=GPIO.LOW)
 	GPIO.setup(Ec, GPIO.IN)
@@ -19,17 +20,21 @@ def checkdist():#Reading distance
 	time.sleep(0.000015)
 	GPIO.output(Tr, GPIO.LOW)
 	while not GPIO.input(Ec):
+        print(1)
 		pass
 	t1 = time.time()
 	while GPIO.input(Ec):
+        print(2)
 		pass
 	t2 = time.time()
+
 	return (t2-t1)*340/2
 
 try:
     if __name__ == '__main__':
         while True:
-            checkdist()
+            print(3)
+            print(checkdist())
         pass
 
 except KeyboardInterrupt:
