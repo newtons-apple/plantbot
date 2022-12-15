@@ -23,8 +23,8 @@ def sing():
 if __name__ == "__main__":
     START, END = 0, 100000000
     result = list()
-    th1 = Thread(target=dance, args=(1, START, END//2, result))
-    th2 = Thread(target=sing, args=(2, END//2, END, result))
+    th1 = Thread(target=dance)
+    th2 = Thread(target=sing)
     
     th1.start()
     th2.start()
