@@ -214,7 +214,7 @@ if __name__=='__main__':
                     cv2.imshow('face',happy)
                     cv2.waitKey(10)
                     # sing()
-                    multiprocessingTest()
+                    multiprocessingTest.multi
                     cv2.imshow('face',normal)
                     cv2.waitKey(10)
                     time.sleep(1)

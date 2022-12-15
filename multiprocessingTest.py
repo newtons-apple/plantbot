@@ -22,11 +22,7 @@ def dance():
 def sing():
     playsound("christmas_song.wav")
 
-
-
-if __name__=='__main__':
-    freeze_support()
-    # 프로세스를 생성합니다
+def multi():
     p1 = Process(target=dance) #함수 1을 위한 프로세스
     p2 = Process(target=sing) #함수 2을 위한 프로세스
 
@@ -38,3 +34,5 @@ if __name__=='__main__':
     p1.join()
     p2.join()
     move.motorStop()
+
+    
