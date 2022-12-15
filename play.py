@@ -118,7 +118,7 @@ def lightcheck():
 
 #장애물 피하기
 def avoidObstacle():
-
+    print('avoid')
     move.move(100,'forward','left',1)
     time.sleep(4)
     move.move(100,'forward','forward')
@@ -146,52 +146,52 @@ def sing():
 
 
 master = False
-while True:
-    ret, img =cam.read()
-    img = cv2.flip(img, 1)
-    img = cv2.flip(img, -1)
-    gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+# while True:
+#     ret, img =cam.read()
+#     img = cv2.flip(img, 1)
+#     img = cv2.flip(img, -1)
+#     gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
     
-    faces = faceCascade.detectMultiScale( 
-        gray,
-        scaleFactor = 1.2,
-        minNeighbors = 5,
-        minSize = (int(minW), int(minH)),
-       )
-    for(x,y,w,h) in faces:
-        cv2.rectangle(img, (x,y), (x+w,y+h), (0,255,0), 2)
-        id, confidence = recognizer.predict(gray[y:y+h,x:x+w])
-        # Check if confidence is less them 100 ==> "0" is perfect match
-        if (confidence < 100):
-            id = names[id]
-            confidence = "  {0}%".format(round(100 - confidence))
-            cv2.imshow('face',happy)
-            cv2.waitKey(10)
-            playsound("hello.wav")
-            time.sleep(1)
-            cv2.imshow('face',normal)
-            cv2.waitKey(10)
-            master = True
-            break
+#     faces = faceCascade.detectMultiScale( 
+#         gray,
+#         scaleFactor = 1.2,
+#         minNeighbors = 5,
+#         minSize = (int(minW), int(minH)),
+#        )
+#     for(x,y,w,h) in faces:
+#         cv2.rectangle(img, (x,y), (x+w,y+h), (0,255,0), 2)
+#         id, confidence = recognizer.predict(gray[y:y+h,x:x+w])
+#         # Check if confidence is less them 100 ==> "0" is perfect match
+#         if (confidence < 100):
+#             id = names[id]
+#             confidence = "  {0}%".format(round(100 - confidence))
+#             cv2.imshow('face',happy)
+#             cv2.waitKey(10)
+#             playsound("hello.wav")
+#             time.sleep(1)
+#             cv2.imshow('face',normal)
+#             cv2.waitKey(10)
+#             master = True
+#             break
 
             
 
-        else:
-            id = "unknown"
-            # confidence = "  {0}%".format(round(100 - confidence))
+#         else:
+#             id = "unknown"
+#             # confidence = "  {0}%".format(round(100 - confidence))
         
-        cv2.putText(img, str(id), (x+5,y-5), font, 1, (255,255,255), 2)
-        cv2.putText(img, str(confidence), (x+5,y+h-5), font, 1, (255,255,0), 1)  
-    cv2.imshow('camera',img) 
-    if master:
-        master=False
-        break
+#         cv2.putText(img, str(id), (x+5,y-5), font, 1, (255,255,255), 2)
+#         cv2.putText(img, str(confidence), (x+5,y+h-5), font, 1, (255,255,0), 1)  
+#     cv2.imshow('camera',img) 
+#     if master:
+#         master=False
+#         break
 
 
 
-    k = cv2.waitKey(10) & 0xff # Press 'ESC' for exiting video
-    if k == 27:
-        break
+#     k = cv2.waitKey(10) & 0xff # Press 'ESC' for exiting video
+#     if k == 27:
+#         break
 
 while True:
     r = sr.Recognizer()
@@ -211,19 +211,19 @@ while True:
                 # p_a.join()
                 p_b.join()
             if(result == "are you having enough light"):
-                cv2.imshow('face',sad)
-                cv2.waitKey(10)
-                playsound("no.wav")
-                time.sleep(0.5)
+                # cv2.imshow('face',sad)
+                # cv2.waitKey(10)
+                # playsound("no.wav")
+                # time.sleep(0.5)
                 while True:
-                    print(1)
-                    lightcheck()
-                    print('a-1')
-                    move.move(100,'forward','front')
-                    time.sleep(8)
-                    print('a-2')
-                    lightcheck()
-                    start_time=time.time()                  
+                    # print(1)
+                    # lightcheck()
+                    # print('a-1')
+                    # move.move(100,'forward','front')
+                    # time.sleep(8)
+                    # print('a-2')
+                    # lightcheck()
+                    # start_time=time.time()                  
                     while True:
                         move.move(100,'forward','front')
                         print(2)
@@ -233,7 +233,7 @@ while True:
                             print(3)
                             avoidObstacle()
                             break
-                        if(10>(time.time()-start_time)):
+                        if(10<(time.time()-start_time)):
                             print('44')
                             break     
                     if(700< readIlluminance()):
